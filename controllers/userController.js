@@ -30,15 +30,15 @@ const userController = {
     }
   },
   // update a user by id
-  async updateUser(req, res) {
-    try {
-      const user = await User.findOneAndUpdate(req.params.id, req.body, {
-        new: true,
-      });
-      res.status(200).json(user);
-    } catch (err) {
-      res.status(500).json(err);
-    }
-  },
+  // async updateUser(req, res) {
+  //   try {
+  //     const user = await User.findOneAndUpdate(req.params.id, req.body, {
+  //       new: true,
+  //     });
+  //     res.status(200).json(user);
+  //   } catch (err) {
+  //     res.status(500).json(err);
+  //   }
+  // },
 
 };
