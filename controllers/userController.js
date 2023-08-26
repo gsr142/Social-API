@@ -53,6 +53,33 @@ const userController = {
     } catch (err) {
       res.status(500).json(err);
     }
+  },
+
+  // add a friend to a user
+  async addFriend(req, res) {
+    try {
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.id },
+        { $addToSet: { friends: req.params.friendId } },
+        { new: true }
+      );
+      res.status(200).json(user);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  },
+  // delete a friend from a user
+  async deleteFriend(req, res) {
+    try {
+      const user = await User.findOneAndUpdate(
+        { _id: req.params.id },
+        { $pull: { friends: req.params.friendId } },
+        { new: true }
+      );
+      res.status(200).json(user);
+    } catch (err) {
+      res.status(500).json(err);
+    }
   }
 
 };
