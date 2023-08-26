@@ -83,11 +83,24 @@ const thoughtController = {
                 {_id: req.params.id},
                 {$addToSet: {reactions: req.body}},
                 {runValidators: true, new: true});
-            res.status(200).json(reaction);
+            res.status(200).json(thought);
         } catch (err) {
             res.status(500).json(err);
         }
     },
+
+    // Delete reaction
+    async deleteReaction(req, res) {
+        try {
+            const thought = await Thought.findOneAndUpdate(
+                {_id: req.params.id},
+                {$pull: {reactions: req.params.reactionId}},
+                {runValidators: true, new: true});
+            res.status(200).json(thought);
+        } catch (err) {
+            res.status(500).json(err);
+        }
+    }
 };
 
 module.exports = thoughtController;
