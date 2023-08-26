@@ -32,14 +32,28 @@ const userController = {
   // update a user by id
   async updateUser(req, res) {
     try {
-      const user = await User.findOneAndUpdate(req.params.id, req.body, {
+      console.log("updating user")
+      const user = await User.findOneAndUpdate({ _id: req.params.id}, req.body, {
         new: true,
       });
+      if (!user) {
+        res.status(404).json({ message: "No user found with this id!" });
+        return;}
+      console.log(user)
       res.status(200).json(user);
     } catch (err) {
       res.status(500).json(err);
     }
   },
+  // delete a user by id
+  async deleteUser(req, res) {
+    try {
+      const user = await User.findOneAndDelete(req.params.id);
+      res.status(200).json(user);
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
 
 };
 
